@@ -120,10 +120,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Extentions\javascript\messages_zh.js" />
     <Content Include="Extentions\javascript\messages_zh.min.js" />
+    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

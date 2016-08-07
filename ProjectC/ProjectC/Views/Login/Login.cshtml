@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "登录";
+}
+
+邮箱<input type="text" /><br />
+手机<input type="text" /><br />
+密码<input type="password" /><br />
+<script>
+$.validator.setDefaults({
+    submitHandler: function (f) {
+        //f.submit();
+        //f.submit(function () { return false; });
+        //alert();
+        //$.ajax({
+        //    type: 'POST',
+        //    url: '/Login/GetD',
+        //    data: {
+        //        //user: $('#user').val(),
+        //        //password1: $('#password').val(),
+        //        user1: '111',
+        //        password1: '222',
+        //    },
+        //    success: function () { alert(); },
+        //    dataType: 'json'
+        //});
+        $(f).ajaxSubmit({
+            type: "post",
+            url: "/Login/GetD",
+            dataType: "json",
+                data: {
+                    //user: $('#user').val(),
+                    //password1: $('#password').val(),
+                    user1: '111',
+                    password1: '222',
+                },
+            success: function (result) {
+                //返回提示信息       
+                alert(result);
+            }
+        });
+    }
+});
+
+$().ready(function() {
+	// 提交时验证表单
+    var validator = $("#form1").validate({
+        rules: {
+            password1: {
+                required: true,
+                minlength: 5
+            },
+            user1: {
+                required: true,
+                minlength: 3,
+                remote: {
+                    url: "/Login/Check",
+                    type: "post",
+                    dataType: 'json',
+                    data: {
+                        data: function () { return $('#user').val(); }
+                    }
+                }
+            }
+        },
+        errorPlacement: function (error, element) {
+            $(element).parent().append(error);
+        },
+        errorElement: "span",
+        errorClass: 'errmsg',
+		messages: {
+			user1: {
+			    required: ' <br /><span class="errmsg-img"></span>必需字段',
+			    minlength: " (不能少于 3 个字母)",
+			    remote:'重名',
+			},
+			password1: {
+				required: " (必需字段)",
+				minlength: " (字母不能少于 5 个且不能大于 12 个)",
+				maxlength: " (字母不能少于 5 个且不能大于 12 个)"
+			}
+		},
+		
+	});
+
+	$(".cancel").click(function() {
+		validator.resetForm();
+	});
+});
+</script>
+<style>
+    p{
+        position:relative;
+    }
+    .errmsg {
+        color: red;
+    }
+    .errmsg-img{
+        display:inline-block;
+        width:15px;
+        height:15px;
+            background-image: url('../../Images/1233a.jpg');
+            background-size:100% 100%;
+            position:relative;
+            top:3px;
+    }
+</style>
+<form id="form1" >
+    <fieldset>
+        <legend>登录框</legend>
+        <p>
+            <label>用户名</label>
+            <input id="user" name="user1" >
+        </p>
+        <p>
+            <label>密码</label>
+            <input id="password" type="password"  name="password1" >
+        </p>
+        <p>
+            <input class="submit" type="submit" value="Login">
+        </p>
+    </fieldset>
+</form>
+

@@ -24,5 +24,13 @@ namespace ProjectC.Controllers
         {
             return Json("getit",JsonRequestBehavior.AllowGet);
         }
+        public ActionResult CheckRepeatEmail()
+        {
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CheckRepeatPhone()
+        {
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
     }
 }
