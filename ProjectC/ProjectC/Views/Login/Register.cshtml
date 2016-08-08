@@ -1,0 +1,256 @@
+﻿
+@{
+    ViewBag.Title = "注册";
+}
+
+<div class="c-regsiter">
+    <div class="c-register-bg-top"></div>
+    <div class="c-register-bg-bottom"></div>
+    <div class="c-register-logo">
+        <img src="~/Images/logo2.png" />
+    </div>
+    <div class="c-regsiter-form">
+        <div class="c-register-left">
+            <div class="c-register-left-nav">
+                <div class="c-register-left-nav-item c-color-green" onclick="navClick(0,this)">
+                    <span class="glyphicon glyphicon-phone"></span>
+                    手机号码注册
+                </div>
+                <div class="c-register-left-nav-item" onclick="navClick(1,this)">
+                    <span class="glyphicon glyphicon-envelope"></span>
+                    邮箱注册
+                </div>
+                <div class="c-register-left-nav-active"></div>
+            </div>
+            <form id="phone-form">
+                <div class="c-register-inputgroup">
+                    <input type="tel" id="phone" name="phone" placeholder="请输入常用手机号码" />
+                </div>
+                <div class="c-register-inputgroup c-register-validatecode">
+                    <input type="text" id="validatecode" name="validatecode" placeholder="请输入验证码" />
+                    <img src="/Login/GetValidateCode" onclick="changeValidateCode(this)" />
+                </div>
+                <div class="c-register-inputgroup c-register-phonecode">
+                    <input type="text" id="phonecode" name="phonecode" placeholder="请输入短信验证码" />
+                    <div class="c-register-btn c-register-btn-unsend" onclick="sendPhoneCode()">获取验证码</div>
+                </div>
+                <div class="c-register-inputgroup">
+                    <input type="password" id="phonepassword" name="phonepassword" placeholder="请输入密码" />
+                </div>
+                <div class="c-register-inputgroup">
+                    <div class="c-register-checkbox"></div>我已阅读并同意&nbsp;
+                    <a class="c-register-agreement" href="/Home/Agreement">《用户协议》</a>
+                    <input type="checkbox" id="agreement" name="agreement" onchange="agreementCheckBox()" />
+                </div>
+                <div class="c-register-inputgroup">
+                    <button class="c-register-btn">注&nbsp;&nbsp;册</button>
+                </div>
+            </form>
+            <form id="email-form" hidden>
+                <div class="c-register-inputgroup">
+                    <input type="text" id="email" name="email" placeholder="请输入常用邮箱地址" />
+                </div>
+                <div class="c-register-inputgroup">
+                    <input type="password" id="emailpassword" name="emailpassword" placeholder="请输入密码" />
+                </div>
+                <div class="c-register-inputgroup">
+                    <div class="c-register-checkbox"></div>我已阅读并同意&nbsp;
+                    <a class="c-register-agreement" href="/Home/Agreement">《拉勾用户协议》</a>
+                    <input type="checkbox" id="agreement" name="agreement" onchange="agreementCheckBox()" />
+                </div>
+                <div class="c-register-inputgroup">
+                    <button class="c-register-btn">注&nbsp;&nbsp;册</button>
+                </div>
+            </form>
+        </div>
+        <div class="c-register-right">
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function navClick(position, element) {
+        if (position == 0) {
+            $('.c-register-left-nav-active').css('left', 0 + '%');
+            $('#email-form').hide();
+            $('#phone-form').fadeIn();
+        }
+        else {
+            $('.c-register-left-nav-active').css('left', 50 + '%');
+            $('#phone-form').hide();
+            $('#email-form').fadeIn();
+        }
+        $('.c-register-left-nav-item').removeClass('c-color-green');
+        $(element).addClass('c-color-green');
+    };
+    function agreementCheckBox() {
+        $('.c-register-checkbox').toggleClass('c-register-checkbox-active');
+    };
+    function changeValidateCode(e) {
+        $(e).attr('src', window.location.protocol + '//' + window.location.host + '/Login/GetValidateCode?random=' + Math.random());
+    };
+    var phonestate = true;
+    function sendPhoneCode() {
+        if (phonestate == false) {
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Login/GetPhoneCode',
+            dataType: 'json',
+            data: {
+                phone: $('#phone').val(),
+            },
+            success: function (d) {
+                phonestate = false;
+                if (d == true) {
+                    var countdown = 10;
+                    var timer = setInterval(function () {
+                        countdown--;
+                        $('.c-register-btn-unsend').text(countdown + 's后重试')
+                        $('.c-register-btn-unsend').addClass('c-register-btn-sent');
+                    }, 1000);
+                    setTimeout(function () {
+                        clearInterval(timer);
+                        $('.c-register-btn-unsend').text('获取验证码');
+                        $('.c-register-btn-unsend').removeClass('c-register-btn-sent');
+                        phonestate = true;
+                    }, 11000);
+                } else {
+                    console.log('服务器错误');
+                }
+            },
+        });
+        $('.c-register-btn-unsend')
+    };
+    $().ready(function () {
+        var validator = $('#email-form').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true,
+                    remote: {
+                        url: "/Login/CheckRepeatEmail",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            email: function () { return $('#email').val(); }
+                        }
+                    }
+                },
+                emailpassword: {
+                    required: true,
+                    minlength: 6,
+                },
+                agreement: {
+                    required: true,
+                }
+            },
+            errorPlacement: function (error, element) {
+                $(element).parent().append(error);
+            },
+            errorElement: 'div',
+            errorClass: 'register-error',
+            messages: {
+                email: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写注册邮箱',
+                    email: '<span class="glyphicon glyphicon-remove-sign"></span>请填写正确的邮箱格式',
+                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>该邮箱已经被注册过',
+                },
+                emailpassword: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写登录密码',
+                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>登录密码不能少于6个字符',
+                },
+                agreement: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请接受用户协议',
+                }
+            },
+        });
+    });
+    $().ready(function () {
+        var validator = $('#phone-form').validate({
+            rules: {
+                phone: {
+                    required: true,
+                    maxlength: 11,
+                    minlength: 11,
+                    remote: {
+                        url: "/Login/CheckRepeatPhone",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            phone: function () { return $('#phone').val(); }
+                        }
+                    }
+                },
+                validatecode: {
+                    required: true,
+                    maxlength: 4,
+                    minlength: 4,
+                    remote: {
+                        url: "/Login/CheckValidateCode",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            validateCode: function () { return $('#validatecode').val(); }
+                        }
+                    }
+                },
+                phonecode: {
+                    required: true,
+                    maxlength: 4,
+                    minlength: 4,
+                    remote: {
+                        url: "/Login/CheckPhoneCode",
+                        type: 'post',
+                        dataType: 'json',
+                        data: {
+                            phoneCode: function () { return $('#phonecode').val(); }
+                        }
+                    }
+                },
+                phonepassword: {
+                    required: true,
+                    minlength: 6,
+                },
+                agreement: {
+                    required: true,
+                }
+            },
+            errorPlacement: function (error, element) {
+                $(element).parent().append(error);
+            },
+            errorElement: 'div',
+            errorClass: 'register-error',
+            messages: {
+                phone: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写注册手机号',
+                    maxlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写11位手机号',
+                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写11位手机号',
+                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>该手机号已经被注册过',
+                },
+                validatecode: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写验证码',
+                    maxlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
+                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
+                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>验证码错误',
+                },
+                phonecode: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写验证码',
+                    maxlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
+                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
+                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>验证码错误',
+                },
+                phonepassword: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写登录密码',
+                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>登录密码不能少于6个字符',
+                },
+                agreement: {
+                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请接受用户协议',
+                }
+            },
+        });
+    });
+</script>
+

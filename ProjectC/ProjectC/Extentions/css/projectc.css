@@ -1,2 +1,312 @@
-﻿body {
+﻿html, body {
+    margin: 0;
+    padding: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-margin-top {
+    margin-top: 0;
+}
+
+.no-margin-right {
+    margin-right: 0;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.no-margin-left {
+    margin-left: 0;
+}
+
+.no-padding {
+    padding: 0;
+}
+
+.no-padding-top {
+    padding-top: 0;
+}
+
+.no-padding-right {
+    padding-right: 0;
+}
+
+.no-padding-bottom {
+    padding-bottom: 0;
+}
+
+.no-padding-left {
+    padding-left: 0;
+}
+
+.ellipsis {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ellipsis-multi-row {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.a-clean,
+.a-clean:active,
+.a-clean:hover,
+.a-clean:focus,
+.a-clean:visited {
+    text-decoration: none;
+}
+
+.display-block {
+    display: block;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.color-white {
+    color: white;
+}
+
+.color-black {
+    color: black;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.bg-black {
+    background-color: black;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+/*----------项目----------*/
+.c-color-green {
+    color: #00b38a;
+}
+
+.c-color-gray {
+    color: #f8f8f8;
+}
+
+.c-bg-green {
+    background-color: #00b38a;
+}
+
+.c-bg-gray {
+    background-color: #f8f8f8;
+}
+
+.c-bg-deepgray {
+    background-color: #777;
+}
+/*----------注册----------*/
+.c-register {
+}
+
+.c-register-bg-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 60%;
+    z-index: -1;
+    background-color: #00b38a;
+}
+
+.c-register-bg-bottom {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+}
+
+.c-register-logo > img {
+    width: 200px;
+    height: 50px;
+    margin: 50px 0 50px 100px;
+}
+
+.c-regsiter-form {
+    width: 600px;
+    border: 2px solid #f8f8f8;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+}
+
+.register-error {
+    color: red;
+}
+
+.c-register-left {
+    width: 300px;
+}
+
+.c-register-left-nav {
+    position: relative;
+    border-bottom: 2px solid #f8f8f8;
+}
+
+.c-register-left-nav-item {
+    display: inline-block;
+    padding: 10px;
+    text-align: center;
+    width: 49%;
+    height: 40px;
+    cursor: pointer;
+}
+
+.c-register-left-nav-active {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 49%;
+    height: 1px;
+    background-color: #00b38a;
+    transition: left .2s;
+}
+
+    .c-register-left-nav-active:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -3px;
+        left: 45%;
+        width: 0;
+        height: 0;
+        border-top: 4px solid #00b38a;
+        border-left: 4px solid #00b38a;
+        border-right: 4px solid white;
+        border-bottom: 4px solid white;
+        transform: rotate(45deg);
+    }
+
+.c-register-inputgroup {
+    position: relative;
+    margin-top: 20px;
+}
+
+    .c-register-inputgroup > input {
+        width: 100%;
+        background-color: #f8f8f8;
+        border: none;
+        padding: 10px;
+        border: 1px solid white;
+    }
+
+        .c-register-inputgroup > input:focus {
+            outline: none;
+            border: 1px solid #00b38a;
+        }
+
+        .c-register-inputgroup > input[type="checkbox"] {
+            width: 120px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+.c-register-checkbox {
+    position: relative;
+    top: 2px;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    margin-right: 10px;
+    border: 1px solid #00b38a;
+}
+
+.c-register-checkbox-active {
+    position: relative;
+    background-color: #00b38a;
+}
+
+    .c-register-checkbox-active:before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        display: block;
+        width: 10px;
+        height: 6px;
+        border-left: 2px solid white;
+        border-bottom: 2px solid white;
+        background: transparent;
+        transform: rotate(-50deg);
+    }
+
+.c-register-agreement,
+.c-register-agreement:hover,
+.c-register-agreement:active,
+.c-register-agreement:focus,
+.c-register-agreement:visited {
+    color: #00b38a;
+}
+
+.c-register-btn {
+    font-weight: bold;
+    width: 100%;
+    background-color: #00b38a;
+    color: white;
+    line-height: 30px;
+    border: none;
+}
+
+    .c-register-btn:focus {
+        outline: none;
+    }
+
+.c-register-validatecode > input {
+    width: 60%;
+}
+
+.c-register-validatecode > img {
+    float: right;
+    width: 40%;
+    height: 42px;
+    cursor: pointer;
+}
+
+.c-register-phonecode > input {
+    width: 60%;
+}
+
+.c-register-phonecode > .c-register-btn-unsend {
+    position: relative;
+    top: 1px;
+    float: right;
+    width: 40%;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.c-register-btn-sent {
+    background-color: #777;
 }

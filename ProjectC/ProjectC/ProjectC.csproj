@@ -93,7 +93,9 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Extentions\css\tool.css" />
     <Content Include="Extentions\css\projectc.css" />
+    <Content Include="Extentions\javascript\tool.js" />
     <Content Include="Extentions\javascript\projectc.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -106,7 +108,7 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-2.2.4.intellisense.js" />
-    <Content Include="Images\1233a.jpg" />
+    <Content Include="Images\logo2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.2.4.js" />
@@ -120,7 +122,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Extentions\javascript\messages_zh.js" />
     <Content Include="Extentions\javascript\messages_zh.min.js" />
-    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Home\Agreement.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -130,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Extentions\Helpers\ValidateCode.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -139,6 +143,9 @@
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.2.4.min.map" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\Test2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

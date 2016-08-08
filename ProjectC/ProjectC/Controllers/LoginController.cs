@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectC.Extentions.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,29 +9,52 @@ namespace ProjectC.Controllers
 {
     public class LoginController : Controller
     {
+        public ActionResult Register()
+        {
+            return View();
+        }
         public ActionResult Login()
         {
             return View();
         }
-        public ActionResult Check(string data)
+        public ActionResult CheckRepeatEmail(string email)
         {
-            if (data == "ookk")
-            {
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-            return Json(false, JsonRequestBehavior.AllowGet);
+            if (email == "111@111.com")
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult GetD(string user1,string password1)
+        public ActionResult CheckRepeatPhone(string phone)
         {
-            return Json("getit",JsonRequestBehavior.AllowGet);
+            if (phone == "11111111111")
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult CheckRepeatEmail()
+        public ActionResult CheckValidateCode(string validateCode)
+        {
+            if (validateCode.ToLower() != Session["ValidateCode"].ToString().ToLower())
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CheckPhoneCode(string phoneCode)
+        {
+            if (phoneCode != "1111")
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult GetPhoneCode(string phone)
         {
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult CheckRepeatPhone()
+        public ActionResult GetValidateCode(int random = 0)
         {
-            return Json(true, JsonRequestBehavior.AllowGet);
+            string code = ValidateCode.CreateValidateCode(4);
+            Session["ValidateCode"] = code;
+            var codeBytes = ValidateCode.CreateValidateGraphic(code);
+            Response.OutputStream.Write(codeBytes, 0, codeBytes.Length);
+            Response.ContentType = "Image/jpeg";
+            Response.Flush();
+            Response.End();
+            return null;
         }
     }
 }
