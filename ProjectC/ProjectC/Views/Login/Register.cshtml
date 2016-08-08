@@ -92,6 +92,10 @@
     };
     var phonestate = true;
     function sendPhoneCode() {
+        if ($('#phone').val() == null || $('#phone').val() == '' || $('#phone').val().length != 11) {
+            alert('请填写正确的手机号');
+            return;
+        }
         if (phonestate == false) {
             return;
         }
@@ -253,4 +257,3 @@
         });
     });
 </script>
-
