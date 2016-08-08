@@ -1,7 +1,88 @@
 ﻿
 @{
-    ViewBag.Title = "注册";
+    ViewBag.Title = "登陆";
 }
-
-<h2>Login</h2>
-
+<div class="c-regsiter">
+    <div class="c-register-bg-top"></div>
+    <div class="c-register-bg-bottom"></div>
+    <div class="c-register-logo">
+        <img src="~/Images/logo2.png" />
+    </div>
+    <div class="c-regsiter-form">
+        <div class="c-register-left">
+            <form id="login-form">
+                <div class="c-register-inputgroup">
+                    <input type="text" id="account" name="account" placeholder="请输入已验证手机/邮箱" />
+                </div>
+                <div class="c-register-inputgroup">
+                    <input type="password" id="password" name="password" placeholder="请输入密码" />
+                </div>
+                <div class="c-register-inputgroup text-right">
+                    <a class="c-register-agreement" href="">忘记密码？</a>
+                </div>
+                <div class="c-register-inputgroup">
+                    <button class="c-register-btn">登&nbsp;&nbsp;录</button>
+                </div>
+            </form>
+        </div>
+        <div class="c-register-right">
+            <div class="c-register-right-go">
+                <p>没有账号：</p>
+                <a href="/Login/Register">去注册<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+            </div>
+            <p class="c-color-deepgray">使用以下账号直接登陆：</p>
+            <ul class="c-register-external-login">
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+    $.validator.addMethod("phoneoremail", function (value, element, params) {
+        var email_reg_1 = /@@/;
+        if (email_reg_1.test(value) == true) {
+            var email_reg_2 = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+            if (email_reg_2.test(value) == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (value.length == 11) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }, '<span class="glyphicon glyphicon-exclamation-sign"></span>请输入有效的手机/邮箱');
+    $().ready(function () {
+        var validator = $('#login-form').validate({
+            rules: {
+                account: {
+                    required: true,
+                    phoneoremail: true,
+                },
+                password: {
+                    required: true,
+                },
+            },
+            errorPlacement: function (error, element) {
+                $(element).parent().append(error);
+            },
+            errorElement: 'div',
+            errorClass: 'register-error',
+            messages: {
+                account: {
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请输入手机/邮箱',
+                },
+                password: {
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请输入登录密码',
+                },
+            },
+        });
+    });
+</script>

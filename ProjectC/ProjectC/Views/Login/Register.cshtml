@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "注册";
 }
-
 <div class="c-regsiter">
     <div class="c-register-bg-top"></div>
     <div class="c-register-bg-bottom"></div>
@@ -65,13 +64,20 @@
         </div>
         <div class="c-register-right">
             <div class="c-register-right-go">
-                <p>已有拉钩账号：</p>
-                <a href="/Login/Login">去登录</a>
+                <p>已有账号：</p>
+                <a href="/Login/Login">去登录<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             </div>
+            <p class="c-color-deepgray">使用以下账号直接登陆：</p>
+            <ul class="c-register-external-login">
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+                <li><a></a></li>
+            </ul>
         </div>
     </div>
 </div>
-
 <script>
     function navClick(position, element) {
         if (position == 0) {
@@ -95,8 +101,7 @@
     };
     var phonestate = true;
     function sendPhoneCode() {
-        if ($('#phone').val() == null || $('#phone').val() == '' || $('#phone').val().length != 11) {
-            alert('请填写正确的手机号');
+        if ($('#phone-form').validate().element($('#phone')) == false || $('#phone-form').validate().element($('#validatecode')) == false) {
             return;
         }
         if (phonestate == false) {
@@ -129,7 +134,6 @@
                 }
             },
         });
-        $('.c-register-btn-unsend')
     };
     $().ready(function () {
         var validator = $('#email-form').validate({
@@ -161,16 +165,16 @@
             errorClass: 'register-error',
             messages: {
                 email: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写注册邮箱',
-                    email: '<span class="glyphicon glyphicon-remove-sign"></span>请填写正确的邮箱格式',
-                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>该邮箱已经被注册过',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写注册邮箱',
+                    email: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写正确的邮箱格式',
+                    remote: '<span class="glyphicon glyphicon-exclamation-sign"></span>该邮箱已经被注册过',
                 },
                 emailpassword: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写登录密码',
-                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>登录密码不能少于6个字符',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写登录密码',
+                    minlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>登录密码不能少于6个字符',
                 },
                 agreement: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请接受用户协议',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请接受用户协议',
                 }
             },
         });
@@ -232,29 +236,29 @@
             errorClass: 'register-error',
             messages: {
                 phone: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写注册手机号',
-                    maxlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写11位手机号',
-                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写11位手机号',
-                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>该手机号已经被注册过',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写注册手机号',
+                    maxlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写11位手机号',
+                    minlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写11位手机号',
+                    remote: '<span class="glyphicon glyphicon-exclamation-sign"></span>该手机号已经被注册过',
                 },
                 validatecode: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写验证码',
-                    maxlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
-                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
-                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>验证码错误',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写验证码',
+                    maxlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写4个字符的验证码',
+                    minlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写4个字符的验证码',
+                    remote: '<span class="glyphicon glyphicon-exclamation-sign"></span>验证码错误',
                 },
                 phonecode: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写验证码',
-                    maxlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
-                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>请填写4个字符的验证码',
-                    remote: '<span class="glyphicon glyphicon-remove-sign"></span>验证码错误',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写验证码',
+                    maxlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写4个字符的验证码',
+                    minlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写4个字符的验证码',
+                    remote: '<span class="glyphicon glyphicon-exclamation-sign"></span>验证码错误',
                 },
                 phonepassword: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请填写登录密码',
-                    minlength: '<span class="glyphicon glyphicon-remove-sign"></span>登录密码不能少于6个字符',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请填写登录密码',
+                    minlength: '<span class="glyphicon glyphicon-exclamation-sign"></span>登录密码不能少于6个字符',
                 },
                 agreement: {
-                    required: '<span class="glyphicon glyphicon-remove-sign"></span>请接受用户协议',
+                    required: '<span class="glyphicon glyphicon-exclamation-sign"></span>请接受用户协议',
                 }
             },
         });

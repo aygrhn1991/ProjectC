@@ -110,6 +110,10 @@
     color: #f8f8f8;
 }
 
+.c-color-deepgray {
+    color: #777;
+}
+
 .c-bg-green {
     background-color: #00b38a;
 }
@@ -316,13 +320,14 @@
 
 .c-register-right {
     position: absolute;
-    top: 30px;
+    top: 60px;
     right: 30px;
     width: 210px;
+    text-align: center;
 }
 
 .c-register-right-go {
-    text-align: center;
+    padding-bottom: 30px;
 }
 
     .c-register-right-go > p {
@@ -336,3 +341,44 @@
     .c-register-right-go > a:visited {
         color: #00b38a;
     }
+
+.c-register-external-login {
+    width: 170px;
+    margin: 0 auto;
+    padding: 0;
+    list-style: none;
+}
+
+    .c-register-external-login > li {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-image: url('../../Images/logos.png');
+        background-size: 150px 60px;
+    }
+
+        .c-register-external-login > li > a {
+            display: block;
+            width: 30px;
+            height: 30px;
+        }
+
+        .c-register-external-login > li:nth-child(1) {
+            background-position: 0 0;
+        }
+
+        .c-register-external-login > li:nth-child(2) {
+            background-position: 30px 0;
+        }
+
+        .c-register-external-login > li:nth-child(3) {
+            background-position: 60px 0;
+        }
+
+        .c-register-external-login > li:nth-child(4) {
+            background-position: 90px 0;
+        }
+
+        .c-register-external-login > li:nth-child(5) {
+            background-position: 120px 0;
+        }
