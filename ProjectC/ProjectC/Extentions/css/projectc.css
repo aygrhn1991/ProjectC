@@ -151,6 +151,7 @@
 }
 
 .c-regsiter-form {
+    position: relative;
     width: 600px;
     border: 2px solid #f8f8f8;
     margin: 0 auto;
@@ -163,7 +164,9 @@
 }
 
 .c-register-left {
+    padding-right: 30px;
     width: 300px;
+    border-right: 1px solid #f8f8f8;
 }
 
 .c-register-left-nav {
@@ -310,3 +313,26 @@
 .c-register-btn-sent {
     background-color: #777;
 }
+
+.c-register-right {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 210px;
+}
+
+.c-register-right-go {
+    text-align: center;
+}
+
+    .c-register-right-go > p {
+        color: #777;
+    }
+
+    .c-register-right-go > a,
+    .c-register-right-go > a:hover,
+    .c-register-right-go > a:active,
+    .c-register-right-go > a:focus,
+    .c-register-right-go > a:visited {
+        color: #00b38a;
+    }
