@@ -109,7 +109,7 @@
         }
         $.ajax({
             type: 'POST',
-            url: '/Login/GetPhoneCode',
+            url: '/Login/GetPhoneValidateCode',
             dataType: 'json',
             data: {
                 phone: $('#phone').val(),
@@ -213,11 +213,11 @@
                     maxlength: 4,
                     minlength: 4,
                     remote: {
-                        url: "/Login/CheckPhoneCode",
+                        url: "/Login/CheckPhoneValidateCode",
                         type: 'post',
                         dataType: 'json',
                         data: {
-                            phoneCode: function () { return $('#phonecode').val(); }
+                            phoneValidateCode: function () { return $('#phonecode').val(); }
                         }
                     }
                 },

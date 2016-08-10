@@ -18,8 +18,8 @@ namespace ProjectC.Extentions.Helpers
             string validateNumberStr = string.Empty;
             for (int i = 0; i < length; i++)
             {
-                int m = random.Next(0, 62);
-                string s = str.Substring(m, 1);
+                int n = random.Next(0, 62);
+                string s = str.Substring(n, 1);
                 validateNumberStr += s;
             }
             return validateNumberStr;
