@@ -9,9 +9,8 @@ namespace ProjectC.Extentions.Entity
     [Table("user")]
     public partial class user
     {
-        public int Id { get; set; }
-
-        [Required]
+        public int id { get; set; }
+        
         public string user_name { get; set; }
     }
 }

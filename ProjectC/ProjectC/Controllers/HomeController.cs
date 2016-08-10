@@ -17,6 +17,11 @@ namespace ProjectC.Controllers
         {
             return View();
         }
+        public ActionResult Error(string errorMessage)
+        {
+            ViewBag.Error = errorMessage;
+            return View();
+        }
         public ActionResult Test()
         {
             return View();

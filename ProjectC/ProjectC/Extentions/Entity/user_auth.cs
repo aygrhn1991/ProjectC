@@ -1,5 +1,6 @@
 namespace ProjectC.Extentions.Entity
 {
+    using Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -12,7 +13,7 @@ namespace ProjectC.Extentions.Entity
 
         public int user_id { get; set; }
 
-        public int identity_type { get; set; }
+        public IdentityType identity_type { get; set; }
 
         [Required]
         public string identifier { get; set; }

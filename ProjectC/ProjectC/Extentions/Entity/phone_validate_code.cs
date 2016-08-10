@@ -14,5 +14,7 @@ namespace ProjectC.Extentions.Entity
 
         [Required]
         public string validate_code { get; set; }
+
+        public DateTime create_time { get; set; }
     }
 }

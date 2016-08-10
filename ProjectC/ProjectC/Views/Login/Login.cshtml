@@ -30,14 +30,7 @@
                 <p>没有账号：</p>
                 <a href="/Login/Register">去注册<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             </div>
-            <p class="c-color-deepgray">使用以下账号直接登陆：</p>
-            <ul class="c-register-external-login">
-                <li><a></a></li>
-                <li><a></a></li>
-                <li><a></a></li>
-                <li><a></a></li>
-                <li><a></a></li>
-            </ul>
+            @Html.Partial("_ExternalLoginPartial")
         </div>
     </div>
 </div>

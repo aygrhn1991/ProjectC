@@ -1,5 +1,6 @@
 ﻿using ProjectC.Extentions.Entity;
 using ProjectC.Extentions.Helpers;
+using ProjectC.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,48 +27,40 @@ namespace ProjectC.Controllers
         #region 注册表单验证
         public ActionResult CheckRepeatPhone(string phone)
         {
-            var query = entity.phone_validate_code.FirstOrDefault(p => p.phone == phone);
+            var query = entity.user_auth.FirstOrDefault(p => p.identity_type == IdentityType.phone && p.identifier == phone);
             if (query == null)
-                return Json(false, JsonRequestBehavior.AllowGet);
-            return Json(true, JsonRequestBehavior.AllowGet);
+                return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
         public ActionResult CheckValidateCode(string validateCode)
         {
             if (Session["ValidateCode"] != null)
             {
-                if (validateCode.ToLower() != Session["ValidateCode"].ToString().ToLower())
-                    return Json(false, JsonRequestBehavior.AllowGet);
-                return Json(true, JsonRequestBehavior.AllowGet);
+                if (validateCode.ToLower() == Session["ValidateCode"].ToString().ToLower())
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                return Json(false, JsonRequestBehavior.AllowGet);
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
-        public ActionResult CheckPhoneValidateCode(string phoneValidateCode)
+        public ActionResult CheckPhoneValidateCode(string phone, string phoneValidateCode)
         {
-
-            if (phoneValidateCode != "1111")
+            var query = entity.phone_validate_code.FirstOrDefault(p => p.phone == phone);
+            if (query == null)
                 return Json(false, JsonRequestBehavior.AllowGet);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            if (query.validate_code == phoneValidateCode && (DateTime.Now.Subtract(query.create_time).TotalMinutes < 30))
+                return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
-
-
-
-
         public ActionResult CheckRepeatEmail(string email)
         {
-            if (email == "111@111.com")
-                return Json(false, JsonRequestBehavior.AllowGet);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            var query = entity.user_auth.FirstOrDefault(p => p.identity_type == IdentityType.email && p.identifier == email);
+            if (query == null)
+                return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
-
-
-
         #endregion
 
-        public ActionResult GetValidateCode(int random = 0)
+        public ActionResult GetValidateCode()
         {
             string code = ValidateCode.CreateValidateCode(4);
             Session["ValidateCode"] = code;
@@ -85,22 +78,75 @@ namespace ProjectC.Controllers
             if (code != null)
             {
                 code.validate_code = codStr;
+                code.create_time = DateTime.Now;
             }
             else
             {
                 phone_validate_code new_code = new phone_validate_code();
                 new_code.phone = phone;
                 new_code.validate_code = codStr;
+                new_code.create_time = DateTime.Now;
                 entity.phone_validate_code.Add(new_code);
             }
-            //"您的验证码为：" + code + "，请尽快进行验证。（该验证码30分钟内有效）【职前招聘】";
-            string url = "http://www.stongnet.com/sdkhttp/sendsms.aspx";
-            string content = "您的验证码为：" + codStr + "，请尽快进行验证。（该验证码30分钟内有效）【职前招聘】";
-            string param = "reg=101100-WEB-HUAX-402265&pwd=BSUAKCWJ&sourceadd=&phone=" + phone + "&content=" + content;
-            PhoneValidateCode.SendPhoneValidateCode_Post(url, param);
+            //string url = "http://www.stongnet.com/sdkhttp/sendsms.aspx";
+            //string content = "您的验证码为：" + codStr + "，请尽快进行验证。（该验证码30分钟内有效）【职前招聘】";
+            //string param = "reg=101100-WEB-HUAX-402265&pwd=BSUAKCWJ&sourceadd=&phone=" + phone + "&content=" + content;
+            //PhoneValidateCode.SendPhoneValidateCode_Post(url, param);
             if (entity.SaveChanges() > 0)
                 return Json(true, JsonRequestBehavior.AllowGet);
             return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult Register_Phone(Register_Phone_Model model)
+        {
+            user user = new user();
+            entity.user.Add(user);
+            entity.SaveChanges();
+
+            user_auth_state user_auth_state = new user_auth_state();
+            user_auth_state.access_failed_count = 0;
+            user_auth_state.email_auth = false;
+            user_auth_state.is_lockout = false;
+            user_auth_state.phone_auth = true;
+            user_auth_state.security_stamp = Guid.NewGuid().ToString("N");
+            user_auth_state.user_id = user.id;
+            entity.user_auth_state.Add(user_auth_state);
+
+            user_auth user_auth = new user_auth();
+            user_auth.user_id = user.id;
+            user_auth.identity_type = IdentityType.phone;
+            user_auth.identifier = model.phone;
+            user_auth.credential = model.phonepassword;
+            entity.user_auth.Add(user_auth);
+
+            if (entity.SaveChanges() > 0)
+                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Error", "Home",new { errorMessage="注册过程中发生意外" });
+        }
+        public ActionResult Register_Email(Register_Email_Model model)
+        {
+            user user = new user();
+            entity.user.Add(user);
+            entity.SaveChanges();
+
+            user_auth_state user_auth_state = new user_auth_state();
+            user_auth_state.access_failed_count = 0;
+            user_auth_state.email_auth = false;
+            user_auth_state.is_lockout = false;
+            user_auth_state.phone_auth = false;
+            user_auth_state.security_stamp = Guid.NewGuid().ToString("N");
+            user_auth_state.user_id = user.id;
+            entity.user_auth_state.Add(user_auth_state);
+
+            user_auth user_auth = new user_auth();
+            user_auth.user_id = user.id;
+            user_auth.identity_type = IdentityType.email;
+            user_auth.identifier = model.email;
+            user_auth.credential = model.emailpassword;
+            entity.user_auth.Add(user_auth);
+
+            if (entity.SaveChanges() > 0)
+                return RedirectToAction("Index", "Home");
+            return RedirectToAction("Error", "Home", new { errorMessage = "注册过程中发生意外" });
         }
     }
 }
