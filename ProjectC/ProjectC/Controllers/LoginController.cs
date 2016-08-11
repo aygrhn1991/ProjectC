@@ -120,7 +120,7 @@ namespace ProjectC.Controllers
 
             if (entity.SaveChanges() > 0)
                 return RedirectToAction("Index", "Home");
-            return RedirectToAction("Error", "Home",new { errorMessage="注册过程中发生意外" });
+            return RedirectToAction("Error", "Home", new { errorMessage = "注册过程中发生意外" });
         }
         public ActionResult Register_Email(Register_Email_Model model)
         {

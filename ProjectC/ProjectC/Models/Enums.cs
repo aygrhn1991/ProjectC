@@ -10,4 +10,9 @@ namespace ProjectC.Models
         phone,
         email,
     }
+    public enum Result : int
+    {
+        success,
+        failed,
+    }
 }

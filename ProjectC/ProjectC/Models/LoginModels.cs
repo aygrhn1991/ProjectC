@@ -19,5 +19,12 @@ namespace ProjectC.Models
     }
     public class LoginModel
     {
+        public string account { get; set; }
+        public string password { get; set; }
+    }
+    public class SignInCookieModel
+    {
+        public int userid { get; set; }
+        public bool isAuthenticated { get; set; }
     }
 }
