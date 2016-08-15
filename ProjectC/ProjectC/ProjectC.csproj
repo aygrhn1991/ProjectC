@@ -153,6 +153,7 @@
     <Compile Include="Extentions\Entity\user.cs" />
     <Compile Include="Extentions\Entity\user_auth.cs" />
     <Compile Include="Extentions\Entity\user_auth_state.cs" />
+    <Compile Include="Extentions\Helpers\Authorize.cs" />
     <Compile Include="Extentions\Helpers\PhoneValidateCode.cs" />
     <Compile Include="Extentions\Helpers\Tools.cs" />
     <Compile Include="Extentions\Helpers\ValidateCode.cs" />

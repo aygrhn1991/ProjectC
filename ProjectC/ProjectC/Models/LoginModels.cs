@@ -25,6 +25,7 @@ namespace ProjectC.Models
     public class SignInCookieModel
     {
         public int userid { get; set; }
+        public string roles { get; set; }
         public bool isAuthenticated { get; set; }
     }
 }

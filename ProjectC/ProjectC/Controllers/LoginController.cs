@@ -1,5 +1,6 @@
 ﻿using ProjectC.Extentions.Entity;
 using ProjectC.Extentions.Helpers;
+using ProjectC.Extentions.Managers;
 using ProjectC.Models;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace ProjectC.Controllers
     public class LoginController : Controller
     {
         ProjectCEntity entity = new ProjectCEntity();
+
+        SignInManager SignInManager = new SignInManager();
+        UserManager UserManager = new UserManager();
 
         #region 页面
         public ActionResult Register()
@@ -118,6 +122,8 @@ namespace ProjectC.Controllers
             user_auth.credential = model.phonepassword;
             entity.user_auth.Add(user_auth);
 
+            SignInManager.SignIn(user.id);
+
             if (entity.SaveChanges() > 0)
                 return RedirectToAction("Index", "Home");
             return RedirectToAction("Error", "Home", new { errorMessage = "注册过程中发生意外" });
@@ -143,6 +149,12 @@ namespace ProjectC.Controllers
             user_auth.identifier = model.email;
             user_auth.credential = model.emailpassword;
             entity.user_auth.Add(user_auth);
+
+            //SignInManager.SignIn(user.id);
+            HttpContextUserPrincipal principal = new HttpContextUserPrincipal(true,"ok123");
+            // 如果用户通过验证,则将用户信息保存在缓存中,以备后用 
+            // 在实际中,朋友们可以尝试使用用户验证票的方式来保存用户信息,这也是.NET内置的用户处理机制 
+            HttpContext.User = principal;
 
             if (entity.SaveChanges() > 0)
                 return RedirectToAction("Index", "Home");

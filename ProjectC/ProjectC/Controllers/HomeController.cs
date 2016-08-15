@@ -1,4 +1,5 @@
 ﻿using ProjectC.Extentions.Helpers;
+using ProjectC.Extentions.Managers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,8 +8,10 @@ using System.Web.Mvc;
 
 namespace ProjectC.Controllers
 {
+    [ProjectCAuthorize]
     public class HomeController : Controller
     {
+        UserManager UserManager = new UserManager();
         public ActionResult Index()
         {
             return View();
@@ -24,6 +27,7 @@ namespace ProjectC.Controllers
         }
         public ActionResult Test()
         {
+            ViewBag.Name = HttpContext.User.Identity.Name;
             return View();
         }
         public ActionResult Test2()

@@ -9,6 +9,13 @@ namespace ProjectC.Extentions.Managers
 {
     public class UserManager
     {
+        public SignInCookieModel GetUser()
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("ProjectC");
+            if (cookie == null)
+                return null;
+            return Tools.JsonToObj(new SignInCookieModel(), cookie.Value);
+        }
         public int? GetUserId()
         {
             HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("ProjectC");
