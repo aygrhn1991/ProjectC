@@ -26,6 +26,10 @@ namespace ProjectC.Controllers
         {
             return View();
         }
+        public ActionResult ForgetPassword()
+        {
+            return View();
+        }
         #endregion
 
         #region 注册表单验证
@@ -61,6 +65,23 @@ namespace ProjectC.Controllers
             if (query == null)
                 return Json(true, JsonRequestBehavior.AllowGet);
             return Json(false, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region 忘记密码表单验证
+        public ActionResult CheckForgetPasswordPhone(string phone)
+        {
+            var query = entity.user_auth.FirstOrDefault(p => p.identity_type == IdentityType.phone && p.identifier == phone);
+            if (query == null)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult CheckForgetPasswordEmail(string email)
+        {
+            var query = entity.user_auth.FirstOrDefault(p => p.identity_type == IdentityType.email && p.identifier == email);
+            if (query == null)
+                return Json(false, JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -122,6 +143,8 @@ namespace ProjectC.Controllers
             user_auth.credential = model.phonepassword;
             entity.user_auth.Add(user_auth);
 
+            Session.Clear();
+
             SignInManager.SignIn(user.id);
 
             if (entity.SaveChanges() > 0)
@@ -170,6 +193,21 @@ namespace ProjectC.Controllers
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
-
+        public ActionResult ResetPasswordByPhone(ResetPassword_Phone_Model model)
+        {
+            var query = entity.user_auth.FirstOrDefault(p => p.identity_type == IdentityType.phone && p.identifier == model.phone);
+            if (query.credential == model.password)
+            {
+                return Json("oldpassword", JsonRequestBehavior.AllowGet);
+            }
+            query.credential = model.password;
+            return Json(entity.SaveChanges() > 0, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ResetPasswordByEmail(ResetPassword_Email_Model model)
+        {
+            return Json(true);
+           string result= EmailSender.SendMail("1059631136@qq.com", "密码找回", "<h1>dianjizheli</h1>");
+            return Json(result== Result.success.ToString(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

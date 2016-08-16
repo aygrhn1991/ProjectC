@@ -155,6 +155,7 @@
     <Compile Include="Extentions\Entity\user_auth.cs" />
     <Compile Include="Extentions\Entity\user_auth_state.cs" />
     <Compile Include="Extentions\Helpers\Authorize.cs" />
+    <Compile Include="Extentions\Helpers\EmailSender.cs" />
     <Compile Include="Extentions\Helpers\PhoneValidateCode.cs" />
     <Compile Include="Extentions\Helpers\Tools.cs" />
     <Compile Include="Extentions\Helpers\ValidateCode.cs" />
@@ -176,6 +177,7 @@
     <Content Include="Views\Home\Test2.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\_ExternalLoginPartial.cshtml" />
+    <Content Include="Views\Login\ForgetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

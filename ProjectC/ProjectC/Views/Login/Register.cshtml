@@ -29,7 +29,7 @@
                     <input type="text" id="validatecode" name="validatecode" placeholder="请输入验证码" />
                     <img src="/Login/GetValidateCode" onclick="changeValidateCode(this)" />
                 </div>
-                <div class="c-register-inputgroup c-register-phonecode">
+                <div class="c-register-inputgroup c-register-validatecode">
                     <input type="text" id="phonevalidatecode" name="phonevalidatecode" placeholder="请输入短信验证码" />
                     <div class="c-register-btn c-register-btn-unsend" onclick="sendPhoneValidateCode()">获取验证码</div>
                 </div>
@@ -67,7 +67,7 @@
                 <p>已有账号：</p>
                 <a href="/Login/Login">去登录<span class="glyphicon glyphicon-circle-arrow-right"></span></a>
             </div>
-            @Html.Partial("_ExternalLoginPartial")            
+            @Html.Partial("_ExternalLoginPartial")
         </div>
     </div>
 </div>

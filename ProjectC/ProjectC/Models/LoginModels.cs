@@ -28,4 +28,13 @@ namespace ProjectC.Models
         public string roles { get; set; }
         public bool isAuthenticated { get; set; }
     }
+    public class ResetPassword_Phone_Model
+    {
+        public string phone { get; set; }
+        public string password { get; set; }
+    }
+    public class ResetPassword_Email_Model
+    {
+        public string email { get; set; }
+    }
 }

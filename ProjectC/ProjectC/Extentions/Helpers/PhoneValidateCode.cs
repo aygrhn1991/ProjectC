@@ -8,8 +8,7 @@ using System.Web;
 namespace ProjectC.Extentions.Helpers
 {
     public class PhoneValidateCode
-    {
-        
+    {        
         public static string CreatePhoneValidateCode(int length)
         {
             string str = "1234567890";

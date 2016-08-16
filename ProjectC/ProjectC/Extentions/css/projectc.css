@@ -300,11 +300,7 @@
     cursor: pointer;
 }
 
-.c-register-phonecode > input {
-    width: 60%;
-}
-
-.c-register-phonecode > .c-register-btn-unsend {
+.c-register-validatecode > .c-register-btn-unsend {
     position: relative;
     top: 1px;
     float: right;
@@ -382,3 +378,136 @@
         .c-register-external-login > li:nth-child(5) {
             background-position: 120px 0;
         }
+/*----------忘记密码----------*/
+.c-forgetpassword-form {
+    position: relative;
+    width: 360px;
+    margin: 0 auto;
+}
+.c-forgetpassword-form>form{
+    border: 2px solid #f8f8f8;
+    background-color:white;
+    padding:30px;
+}
+
+.c-forgetpassword-nav {
+    color: #00b38a;
+    text-align: right;
+    cursor: pointer;
+}
+
+.c-forgetpassword-step {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.c-forgetpassword-step-num {
+    display: inline-block;
+    color: #777;
+}
+
+    .c-forgetpassword-step-num > span:first-child {
+        font-weight: bold;
+        font-size: 30px;
+        font-style: italic;
+    }
+
+.c-forgetpassword-step-active {
+    color: #00b38a;
+}
+
+.c-forgetpassword-step-line {
+    position: relative;
+    top: -20px;
+    display: inline-block;
+    height: 3px;
+    background-color: #f8f8f8;
+    margin: 0 10px;
+}
+/*----------翻转样式----------*/
+.c-flip-wrapper {
+    -webkit-perspective: 1000px;
+    perspective: 1000px;
+}
+
+.c-flip-in {
+    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-duration: 350ms;
+    animation-timing-function: ease-out;
+    animation-duration: 350ms;
+}
+
+.c-flip-out {
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 225ms;
+    animation-timing-function: ease-in;
+    animation-duration: 225ms;
+}
+
+.c-flip {
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateX(0);
+    backface-visibility: hidden;
+    transform: translateX(0);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+    .c-flip.c-flip-out {
+        -webkit-transform: rotateY(-90deg) scale(.9);
+        -webkit-animation-name: flipouttoleft;
+        -webkit-animation-duration: 175ms;
+        transform: rotateY(-90deg) scale(.9);
+        animation-name: flipouttoleft;
+        animation-duration: 175ms;
+    }
+
+    .c-flip.c-flip-in {
+        -webkit-animation-name: flipintoright;
+        -webkit-animation-duration: 225ms;
+        animation-name: flipintoright;
+        animation-duration: 225ms;
+    }
+
+@-webkit-keyframes flipouttoleft {
+    from {
+        -webkit-transform: rotateY(0);
+    }
+
+    to {
+        -webkit-transform: rotateY(-90deg) scale(.9);
+    }
+}
+
+@keyframes flipouttoleft {
+    from {
+        transform: rotateY(0);
+    }
+
+    to {
+        transform: rotateY(-90deg) scale(.9);
+    }
+}
+
+@-webkit-keyframes flipintoright {
+    from {
+        -webkit-transform: rotateY(90deg) scale(.9);
+    }
+
+    to {
+        -webkit-transform: rotateY(0);
+    }
+}
+
+@keyframes flipintoright {
+    from {
+        transform: rotateY(90deg) scale(.9);
+    }
+
+    to {
+        transform: rotateY(0);
+    }
+}
