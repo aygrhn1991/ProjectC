@@ -13,7 +13,7 @@ namespace ProjectC.Extentions.Managers
         {
             SignInCookieModel cookieModel = new SignInCookieModel();
             cookieModel.userid = userid;
-            cookieModel.roles = null;
+            cookieModel.roles = "";
             cookieModel.isAuthenticated = true;
             HttpCookie cookie = new HttpCookie("ProjectC");
             cookie.Value = Tools.ObjToJson(cookieModel);

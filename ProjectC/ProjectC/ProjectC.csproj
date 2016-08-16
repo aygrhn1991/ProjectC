@@ -138,6 +138,7 @@
     <Content Include="Extentions\javascript\messages_zh.js" />
     <Content Include="Extentions\javascript\messages_zh.min.js" />
     <Content Include="Views\Home\Agreement.cshtml" />
+    <Content Include="Views\Home\Forbiden.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />

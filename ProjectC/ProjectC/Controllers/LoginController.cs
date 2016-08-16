@@ -150,15 +150,26 @@ namespace ProjectC.Controllers
             user_auth.credential = model.emailpassword;
             entity.user_auth.Add(user_auth);
 
-            //SignInManager.SignIn(user.id);
-            HttpContextUserPrincipal principal = new HttpContextUserPrincipal(true,"ok123");
-            // 如果用户通过验证,则将用户信息保存在缓存中,以备后用 
-            // 在实际中,朋友们可以尝试使用用户验证票的方式来保存用户信息,这也是.NET内置的用户处理机制 
-            HttpContext.User = principal;
+            SignInManager.SignIn(user.id);
 
             if (entity.SaveChanges() > 0)
                 return RedirectToAction("Index", "Home");
             return RedirectToAction("Error", "Home", new { errorMessage = "注册过程中发生意外" });
         }
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            var query = entity.user_auth.FirstOrDefault(p => p.identifier == model.account);
+            if (query != null)
+            {
+                if (query.credential == model.password)
+                {
+                    SignInManager.SignIn(query.user_id);
+                    return Json(true, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

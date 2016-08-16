@@ -17,11 +17,14 @@
                 <div class="c-register-inputgroup">
                     <input type="password" id="password" name="password" placeholder="请输入密码" />
                 </div>
+                <div id="login-failed" style="color:red;display:none;">
+                    <span class="glyphicon glyphicon-exclamation-sign"></span>账号或密码错误
+                </div>
                 <div class="c-register-inputgroup text-right">
                     <a class="c-register-agreement" href="">忘记密码？</a>
                 </div>
                 <div class="c-register-inputgroup">
-                    <button class="c-register-btn">登&nbsp;&nbsp;录</button>
+                    <button class="c-register-btn" type="submit">登&nbsp;&nbsp;录</button>
                 </div>
             </form>
         </div>
@@ -54,6 +57,24 @@
     }, '<span class="glyphicon glyphicon-exclamation-sign"></span>请输入有效的手机/邮箱');
     $().ready(function () {
         var validator = $('#login-form').validate({
+            submitHandler: function (form) {
+                $('#login-failed').hide();
+                $(form).ajaxSubmit({
+                    type: "post",
+                    dataType: "json",
+                    url: "/Login/Login",
+                    data: {
+                        account: $('#account').val(),
+                        password: $('#password').val(),
+                    },
+                    success: function (data) {
+                        if (data == true)
+                            window.location.href = '/Home/Index';
+                        else
+                            $('#login-failed').show();
+                    }
+                });
+            },
             rules: {
                 account: {
                     required: true,

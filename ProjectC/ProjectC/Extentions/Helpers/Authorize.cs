@@ -21,13 +21,23 @@ namespace ProjectC.Extentions.Helpers
             }
             HttpCookie cookie = HttpContext.Current.Request.Cookies.Get("ProjectC");
             if (cookie == null)
+            {
+                httpContext.Response.StatusCode = 401;
                 return false;
+            }
             SignInCookieModel user = Tools.JsonToObj(new SignInCookieModel(), cookie.Value);
             if (!user.isAuthenticated)
+            {
+                httpContext.Response.StatusCode = 401;
                 return false;
+            }
             string[] users = Users.Split(',');
             string[] roles = Roles.Split(',');
-            if (roles.Length != 0)
+            if (roles.Length == 1 && string.IsNullOrWhiteSpace(roles[0]))
+            {
+                result = true;
+            }
+            else
             {
                 string[] currentRoles = user.roles.Split(',');
                 foreach (var role in roles)
@@ -48,9 +58,13 @@ namespace ProjectC.Extentions.Helpers
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             base.OnAuthorization(filterContext);
-            if (filterContext.HttpContext.Response.StatusCode == 403)
+            if (filterContext.HttpContext.Response.StatusCode == 401)
             {
                 filterContext.Result = new RedirectResult("/Login/Login");
+            }
+            if (filterContext.HttpContext.Response.StatusCode == 403)
+            {
+                filterContext.Result = new RedirectResult("/Home/Forbiden");
             }
         }
     }

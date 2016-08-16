@@ -16,20 +16,28 @@ namespace ProjectC.Controllers
         {
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Agreement()
         {
             return View();
         }
+        [AllowAnonymous]
         public ActionResult Error(string errorMessage)
         {
             ViewBag.Error = errorMessage;
             return View();
         }
-        public ActionResult Test()
+        [AllowAnonymous]
+        public ActionResult Forbiden()
         {
-            ViewBag.Name = HttpContext.User.Identity.Name;
             return View();
         }
+        [AllowAnonymous]
+        public ActionResult Test()
+        {
+            return View();
+        }
+        [AllowAnonymous]
         public ActionResult Test2()
         {
             var s = ValidateCode.CreateValidateGraphic(ValidateCode.CreateValidateCode(4));

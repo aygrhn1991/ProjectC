@@ -2,15 +2,151 @@
 @{
     Layout = null;
 }
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
-    
-    
+    <script src="~/Scripts/jquery-2.2.4.js"></script>
+    <style type="text/css">
+        .in {
+            -webkit-animation-timing-function: ease-out;
+            -webkit-animation-duration: 350ms;
+            animation-timing-function: ease-out;
+            animation-duration: 350ms;
+        }
 
+        .out {
+            -webkit-animation-timing-function: ease-in;
+            -webkit-animation-duration: 225ms;
+            animation-timing-function: ease-in;
+            animation-duration: 225ms;
+        }
+
+        .viewport-flip {
+            -webkit-perspective: 1000px;
+            perspective: 1000px;
+            position: absolute;
+        }
+
+        .flip {
+            -webkit-backface-visibility: hidden;
+            -webkit-transform: translateX(0); /* Needed to work around an iOS 3.1 bug that causes listview thumbs to disappear when -webkit-visibility:hidden is used. */
+            backface-visibility: hidden;
+            transform: translateX(0);
+        }
+
+            .flip.out {
+                -webkit-transform: rotateY(-90deg) scale(.9);
+                -webkit-animation-name: flipouttoleft;
+                -webkit-animation-duration: 175ms;
+                transform: rotateY(-90deg) scale(.9);
+                animation-name: flipouttoleft;
+                animation-duration: 175ms;
+            }
+
+            .flip.in {
+                -webkit-animation-name: flipintoright;
+                -webkit-animation-duration: 225ms;
+                animation-name: flipintoright;
+                animation-duration: 225ms;
+            }
+
+        @@-webkit-keyframes flipouttoleft {
+            from {
+                -webkit-transform: rotateY(0);
+            }
+
+            to {
+                -webkit-transform: rotateY(-90deg) scale(.9);
+            }
+        }
+
+        @@keyframes flipouttoleft {
+            from {
+                transform: rotateY(0);
+            }
+
+            to {
+                transform: rotateY(-90deg) scale(.9);
+            }
+        }
+
+        @@-webkit-keyframes flipintoright {
+            from {
+                -webkit-transform: rotateY(90deg) scale(.9);
+            }
+
+            to {
+                -webkit-transform: rotateY(0);
+            }
+        }
+
+        @@keyframes flipintoright {
+            from {
+                transform: rotateY(90deg) scale(.9);
+            }
+
+            to {
+                transform: rotateY(0);
+            }
+        }
+
+        .box {
+            width: 200px;
+            height: 282px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .list {
+            position: absolute;
+        }
+
+        img{
+            width:100px;
+            height:200px;
+        }
+    </style>
+   
 </head>
 <body>
-    @ViewBag.Name
+    <div id="box" class="box viewport-flip" title="点击翻面">
+        <a href="/" class="list flip out"><img src="~/Images/logo2.png" alt="纸牌正面" /></a>
+        <a href="/" class="list flip"><img src="~/Images/logos.png" alt="纸牌背面" /></a>
+    </div>
+    <script type="text/javascript">
+        // 在前面显示的元素，隐藏在后面的元素
+        var eleBack = null, eleFront = null,
+            // 纸牌元素们
+            eleList = $(".list");
+
+        // 确定前面与后面元素
+        var funBackOrFront = function () {
+            eleList.each(function () {
+                if ($(this).hasClass("out")) {
+                    eleBack = $(this);
+                } else {
+                    eleFront = $(this);
+                }
+            });
+        };
+        funBackOrFront();
+
+        $("#box").bind("click", function () {
+            // 切换的顺序如下
+            // 1. 当前在前显示的元素翻转90度隐藏, 动画时间225毫秒
+            // 2. 结束后，之前显示在后面的元素逆向90度翻转显示在前
+            // 3. 完成翻面效果
+            eleFront.addClass("out").removeClass("in");
+            setTimeout(function () {
+                eleBack.addClass("in").removeClass("out");
+                // 重新确定正反元素
+                funBackOrFront();
+            }, 225);
+            return false;
+        });
+    </script>
 </body>
 </html>
