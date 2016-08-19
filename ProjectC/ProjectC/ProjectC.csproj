@@ -139,6 +139,7 @@
     <Content Include="Extentions\javascript\messages_zh.min.js" />
     <Content Include="Views\Home\Agreement.cshtml" />
     <Content Include="Views\Home\Forbiden.cshtml" />
+    <Content Include="Views\Login\ForgetPassword.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -177,7 +178,6 @@
     <Content Include="Views\Home\Test2.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Shared\_ExternalLoginPartial.cshtml" />
-    <Content Include="Views\Login\ForgetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
